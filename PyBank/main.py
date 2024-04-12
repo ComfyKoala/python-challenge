@@ -62,9 +62,17 @@ with open(csvPath) as csvFile:
 
     # loop thru dates + change pairs in dictionary
     for date, change in budgetChanges.items():
-        if change > maxChange:
+        # if maxDate and minDate are both empty, this is the first row. set the values accordingly
+        if not maxDate and not minDate:
             maxChange = change 
             maxDate = date
+            minChange = change
+            minDate = date
+        # if change greater than recorded max change, update max change
+        elif change > maxChange:
+            maxChange = change 
+            maxDate = date
+        # if change less than recorded min change, update min change
         elif change < minChange:
             minChange = change
             minDate = date
