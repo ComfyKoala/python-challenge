@@ -20,6 +20,7 @@ CANDIDATE_COL = 2
 
 # create path to csv
 csvPath = os.path.join('Resources', 'election_data.csv')
+resultsFile = open('results.txt', 'w', encoding='utf-8')
 
 # open file for reading
 with open(csvPath) as csvFile:
@@ -42,8 +43,13 @@ with open(csvPath) as csvFile:
         # increment total votes
         totalVotes += 1
 
+    # print results
     print("Election Results\n-------------------------")
     print(f"Total Votes: {totalVotes}\n-------------------------")
+
+    # write results to file
+    resultsFile.write("Election Results\n-------------------------\n")
+    resultsFile.write(f"Total Votes: {totalVotes}\n-------------------------\n")
 
     # track winner
     winner = ""
@@ -52,8 +58,9 @@ with open(csvPath) as csvFile:
     for candidate, votes in candidateVotes.items():
         # calculate percent of votes for candidate
         percentTotal = (float(votes)/totalVotes) * 100
-        # print out candidate
+        # print out candidate and write to file
         print(f"{candidate}: {percentTotal:.3f}% ({votes})")
+        resultsFile.write(f"{candidate}: {percentTotal:.3f}% ({votes})\n")
         # if winner is empty, this is the first row. set values accordingly
         if not winner:
             winner = candidate
@@ -63,3 +70,6 @@ with open(csvPath) as csvFile:
             winner = candidate
             winnerPercent = percentTotal
     print(f"-------------------------\nWinner: {winner}\n-------------------------")
+    resultsFile.write(f"-------------------------\nWinner: {winner}\n-------------------------\n")
+
+resultsFile.close()

@@ -19,6 +19,7 @@ PROFIT_LOSS_COL = 1
 
 # create path to csv
 csvPath = os.path.join('Resources', 'budget_data.csv')
+analysisFile = open('analysis.txt', 'w', encoding='utf-8')
 
 # open file for reading
 with open(csvPath) as csvFile:
@@ -84,3 +85,13 @@ with open(csvPath) as csvFile:
     print(f"Average Change: ${averageChange:.2f}")
     print(f"Greatest Increase in Profits: {maxDate} (${maxChange})")
     print(f"Greatest Decrease in Profits: {minDate} (${minChange})")
+
+    #write results to file
+    analysisFile.write("Financial Analysis\n----------------------------\n")
+    analysisFile.write(f"Total Months: {totalMonths}\n")
+    analysisFile.write(f"Total: ${totalNet}\n")
+    analysisFile.write(f"Average Change: ${averageChange:.2f}\n")
+    analysisFile.write(f"Greatest Increase in Profits: {maxDate} (${maxChange})\n")
+    analysisFile.write(f"Greatest Decrease in Profits: {minDate} (${minChange})\n")
+
+analysisFile.close()
